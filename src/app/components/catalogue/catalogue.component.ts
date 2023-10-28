@@ -9,14 +9,23 @@ import { Product } from '../../interfaces/product';
 })
 export class CatalogueComponent {
   products: Product[] = [];
+  error = false;
+  errorMessage = '';
 
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit() {
     this.httpClient
       .get<Product[]>('https://localhost:7027/api/Products')
-      .subscribe((data: Product[]) => {
-        this.products = data;
-      });
+      .subscribe(
+        (data: Product[]) => {
+          this.products = data;
+        },
+        (error) => {
+          this.error = true;
+          this.errorMessage = 'Failed to fetch products.';
+          console.log('Error fetching products');
+        }
+      );
   }
 }
