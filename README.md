@@ -1,4 +1,6 @@
-![Status - WIP](https://img.shields.io/badge/Status-WIP-2ea44f)
+![Status - WIP](https://img.shields.io/badge/Status-WIP-yellow) 
+[![Hosted with Cloudflare Pages](https://img.shields.io/badge/Hosted_with-Cloudflare_Pages-orange?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/ "Go to Cloudflare Pages homepage")
+[![Made with Angular](https://img.shields.io/badge/Angular-red?logo=angular&logoColor=white)](https://angular.io/ "Go to Angular homepage")
 
 # Storefront
 
