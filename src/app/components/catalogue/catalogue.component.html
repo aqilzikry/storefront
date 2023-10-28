@@ -3,12 +3,17 @@
   *ngIf="error"
   class="w-full max-w-screen-xl"
 ></app-error-alert>
-<div
-  *ngIf="!error"
-  class="w-full p-4 lg:p-0 max-w-screen-xl grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8"
->
-  <app-product-card
-    *ngFor="let product of products"
-    [product]="product"
-  ></app-product-card>
+<div *ngIf="loading; else content">
+  <span class="loading loading-spinner loading-lg"></span>
 </div>
+<ng-template #content>
+  <div
+    *ngIf="!error"
+    class="w-full p-4 xl:p-0 max-w-screen-xl grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8"
+  >
+    <app-product-card
+      *ngFor="let product of products"
+      [product]="product"
+    ></app-product-card>
+  </div>
+</ng-template>
