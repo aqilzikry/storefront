@@ -12,4 +12,8 @@ export class AuthService {
   register(data: any): Observable<any> {
     return this.http.post('https://localhost:7027/api/authentication/register', data);
   }
+
+  login(data: any): Observable<any> {
+    return this.http.post('https://localhost:7027/api/authentication/login', data);
+  }
 }
