@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CatalogueComponent } from './components/catalogue/catalogue.component';
+import { CartPopoverComponent } from './cart-popover/cart-popover.component';
+import { CartComponent } from './cart/cart.component';
+import { BannerComponent } from './banner/banner.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    ProductCardComponent,
+    FooterComponent,
+    CatalogueComponent,
+    CartPopoverComponent,
+    CartComponent,
+    BannerComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}

@@ -1,0 +1,7 @@
+:host {
+  @apply flex flex-col justify-center;
+}
+
+.ng-submitted input.ng-invalid {
+  @apply input-error;
+}

@@ -1,0 +1,13 @@
+@tailwind utilities;
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+:host {
+  @apply flex-1 max-w-screen-xl self-center px-8;
+}
