@@ -1,3 +1,5 @@
+![Status - WIP](https://img.shields.io/badge/Status-WIP-2ea44f)
+
 # Storefront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
