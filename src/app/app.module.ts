@@ -12,6 +12,7 @@ import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { CartPopoverComponent } from './cart-popover/cart-popover.component';
 import { CartComponent } from './cart/cart.component';
 import { BannerComponent } from './banner/banner.component';
+import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { BannerComponent } from './banner/banner.component';
     CartPopoverComponent,
     CartComponent,
     BannerComponent,
+    ErrorAlertComponent,
   ],
   imports: [
     BrowserModule,
