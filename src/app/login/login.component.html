@@ -44,6 +44,11 @@
       >Remember me</label
     >
   </div>
+
+  <div *ngIf="loginError" class="text-red-600 text-center">
+    Invalid email or password.
+  </div>
+
   <button type="submit" class="btn btn-primary btn-block">Submit</button>
   <a class="link block text-center py-4" routerLink="/register"
     >Don't have an account? Register here.</a

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,8 +10,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   formGroup!: FormGroup;
+  buttonShake = false;
+  loginError: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -25,13 +28,17 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.formGroup.valid) {
-      this.authService.login(this.formGroup.value).subscribe((result) => {
-        if (result.status) {
-          console.dir(result.data.token);
-        } else {
-          console.log(result.message);
+      this.authService.login(this.formGroup.value).subscribe(
+        (result) => {
+          if (result.data) {
+            console.dir(result.data.token);
+            this.router.navigate(['/']);
+          }
+        },
+        (error) => {
+          if (error.status == 401) this.loginError = true;
         }
-      });
+      );
     }
   }
 }
