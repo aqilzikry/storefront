@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { User } from './interfaces/user';
 
 @Injectable({
@@ -34,13 +34,15 @@ export class AuthService {
       .post('https://localhost:7027/api/authentication/login', data)
       .pipe(
         map((response: any) => {
-          console.log('Posting');
           if (response.status) {
             const user = response.data.user;
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
           }
           return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(error); // Re-throw the error to propagate it further
         })
       );
   }
