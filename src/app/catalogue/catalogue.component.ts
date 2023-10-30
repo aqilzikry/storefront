@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Product } from '../../interfaces/product';
+import { Product } from '../interfaces/product';
 import { tap } from 'rxjs';
 
 @Component({

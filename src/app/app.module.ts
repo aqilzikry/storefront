@@ -8,10 +8,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CatalogueComponent } from './components/catalogue/catalogue.component';
-import { CartPopoverComponent } from './cart-popover/cart-popover.component';
+import { CatalogueComponent } from './catalogue/catalogue.component';
+import { CartPopoverComponent } from './components/cart-popover/cart-popover.component';
 import { CartComponent } from './cart/cart.component';
-import { BannerComponent } from './banner/banner.component';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { ErrorAlertComponent } from './components/error-alert/error-alert.compon
     CatalogueComponent,
     CartPopoverComponent,
     CartComponent,
-    BannerComponent,
     ErrorAlertComponent,
   ],
   imports: [
