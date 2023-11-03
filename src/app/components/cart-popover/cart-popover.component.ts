@@ -12,7 +12,7 @@ import {
   styleUrls: ['./cart-popover.component.css'],
 })
 export class CartPopoverComponent {
-  test = [1, 2];
+  products = [2];
   isDropdownOpen = false;
 
   @ViewChild('myDetailsElement') detailsElement!: ElementRef;
