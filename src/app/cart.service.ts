@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 })
 export class CartService {
   private apiUrl = 'https://localhost:7027/api/Cart';
+  private headers;
 
   private cartItemsSubject = new BehaviorSubject<any>(null);
   cartItems$: Observable<any> = this.cartItemsSubject.asObservable();
@@ -17,15 +18,14 @@ export class CartService {
       const user = JSON.parse(storedCart);
       this.cartItemsSubject.next(user);
     }
+    const token = localStorage.getItem('token');
+    this.headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
   }
 
   getCartItems(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get(this.apiUrl, { headers }).pipe(
+    return this.http.get(this.apiUrl, { headers: this.headers }).pipe(
       tap((data) => {
         this.cartItemsSubject.next(data);
       })
@@ -35,5 +35,17 @@ export class CartService {
   clearCartItems(): void {
     this.cartItemsSubject.next(null);
     localStorage.removeItem('cart');
+  }
+
+  addItemToCart(productId: number, quantity: number): void {
+    const data = {
+      productId,
+      quantity,
+    };
+    this.http
+      .post(this.apiUrl, data, { headers: this.headers })
+      .subscribe((data) => {
+        this.cartItemsSubject.next(data);
+      });
   }
 }
