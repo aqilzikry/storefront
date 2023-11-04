@@ -8,6 +8,12 @@
       >
     </div>
     <div class="flex-none gap-3">
+      <app-cart-popover></app-cart-popover>
+
+      <span *ngIf="loggedIn" class="font-semibold ml-2"
+        >Hi, {{ currentUser!.userName }}!</span
+      >
+
       <div *ngIf="!loggedIn" class="">
         <button class="btn btn-primary" routerLink="login">Login</button>
       </div>
@@ -28,10 +34,6 @@
           <li><a (click)="logout()">Logout</a></li>
         </ul>
       </div>
-      <span *ngIf="loggedIn" class="font-semibold mr-2">{{
-        currentUser!.userName
-      }}</span>
-      <app-cart-popover></app-cart-popover>
     </div>
   </div>
 </nav>
