@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'https://localhost:7027/api/Cart';
-
   private cartItemsSubject = new BehaviorSubject<any>(null);
   cartItems$: Observable<any> = this.cartItemsSubject.asObservable();
 
@@ -29,14 +28,16 @@ export class CartService {
   getCartItems(): Observable<any> {
     console.log('Calling cart API');
 
-    return this.http.get(this.apiUrl, { headers: this.generateHeader() }).pipe(
-      map((data) => {
-        return data;
-      }),
-      tap((data) => {
-        this.cartItemsSubject.next(data);
-      })
-    );
+    return this.http
+      .get(environment.apiUrl + '/Cart', { headers: this.generateHeader() })
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap((data) => {
+          this.cartItemsSubject.next(data);
+        })
+      );
   }
 
   resetCart(): void {
@@ -50,7 +51,9 @@ export class CartService {
       quantity,
     };
     this.http
-      .post(this.apiUrl, data, { headers: this.generateHeader() })
+      .post(environment.apiUrl + '/Cart', data, {
+        headers: this.generateHeader(),
+      })
       .subscribe((data) => {
         this.cartItemsSubject.next(data);
       });
