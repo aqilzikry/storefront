@@ -1,14 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = 'https://localhost:7027/api/Cart';
-  private headers;
-
   private cartItemsSubject = new BehaviorSubject<any>(null);
   cartItems$: Observable<any> = this.cartItemsSubject.asObservable();
 
@@ -18,21 +16,31 @@ export class CartService {
       const user = JSON.parse(storedCart);
       this.cartItemsSubject.next(user);
     }
+  }
+
+  generateHeader() {
     const token = localStorage.getItem('token');
-    this.headers = new HttpHeaders({
+    return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
   }
 
   getCartItems(): Observable<any> {
-    return this.http.get(this.apiUrl, { headers: this.headers }).pipe(
-      tap((data) => {
-        this.cartItemsSubject.next(data);
-      })
-    );
+    console.log('Calling cart API');
+
+    return this.http
+      .get(environment.apiUrl + '/Cart', { headers: this.generateHeader() })
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap((data) => {
+          this.cartItemsSubject.next(data);
+        })
+      );
   }
 
-  clearCartItems(): void {
+  resetCart(): void {
     this.cartItemsSubject.next(null);
     localStorage.removeItem('cart');
   }
@@ -43,7 +51,9 @@ export class CartService {
       quantity,
     };
     this.http
-      .post(this.apiUrl, data, { headers: this.headers })
+      .post(environment.apiUrl + '/Cart', data, {
+        headers: this.generateHeader(),
+      })
       .subscribe((data) => {
         this.cartItemsSubject.next(data);
       });

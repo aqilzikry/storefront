@@ -24,7 +24,9 @@
   >
     <div class="card-body">
       <span class="font-bold text-lg mb-4">{{ itemCount }} Items</span>
-      <ul class="border-b-2 border-b-slate-100 pb-8 flex flex-col gap-4">
+      <ul
+        class="border-b-2 border-b-slate-100 pb-8 flex flex-col gap-4 pr-3 max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-200"
+      >
         <li *ngIf="itemCount == 0; else content">No items in cart.</li>
         <ng-template #content>
           <li

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Product } from '../interfaces/product';
 import { tap } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-catalogue',
@@ -19,7 +20,7 @@ export class CatalogueComponent {
   ngOnInit() {
     this.loading = true;
     this.httpClient
-      .get<Product[]>('https://localhost:7027/api/Products')
+      .get<Product[]>(environment.apiUrl + '/Products')
       .pipe(tap(() => (this.loading = false)))
       .subscribe(
         (data: Product[]) => {

@@ -11,6 +11,7 @@ import {
 } from 'rxjs';
 import { User } from './interfaces/user';
 import { CartService } from './cart.service';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -31,19 +32,19 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('currentUser');
+    return !!localStorage.getItem('token');
   }
 
   register(data: any): Observable<any> {
     return this.http.post(
-      'https://localhost:7027/api/authentication/register',
+      environment.apiUrl + '/authentication/register',
       data
     );
   }
 
   login(data: any): Observable<any> {
     return this.http
-      .post('https://localhost:7027/api/authentication/login', data)
+      .post(environment.apiUrl + '/authentication/login', data)
       .pipe(
         mergeMap((loginResponse: any) => {
           if (loginResponse.status) {
@@ -69,10 +70,10 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post('https://localhost:7027/api/authentication/logout', {});
+    this.http.post(environment.apiUrl + '/authentication/logout', {});
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
-    this.cartService.clearCartItems();
+    this.cartService.resetCart();
     this.currentUserSubject.next(null);
   }
 }
