@@ -71,7 +71,8 @@ export class AuthService {
   logout() {
     this.http.post('https://localhost:7027/api/authentication/logout', {});
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('cart');
+    localStorage.removeItem('token');
+    this.cartService.clearCartItems();
     this.currentUserSubject.next(null);
   }
 }
