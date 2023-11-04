@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('currentUser');
+    return !!localStorage.getItem('token');
   }
 
   register(data: any): Observable<any> {
@@ -72,7 +72,7 @@ export class AuthService {
     this.http.post('https://localhost:7027/api/authentication/logout', {});
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
-    this.cartService.clearCartItems();
+    this.cartService.resetCart();
     this.currentUserSubject.next(null);
   }
 }
