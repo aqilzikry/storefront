@@ -2,6 +2,13 @@
 [![Hosted with Cloudflare Pages](https://img.shields.io/badge/Hosted_with-Cloudflare_Pages-orange?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/ "Go to Cloudflare Pages homepage")
 [![Made with Angular](https://img.shields.io/badge/Angular-red?logo=angular&logoColor=white)](https://angular.io/ "Go to Angular homepage")
 
+# TODO
+
+* Mobile cart popover
+* Cart page
+* Update quantity of cart items
+* Checkout page
+
 # Storefront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
