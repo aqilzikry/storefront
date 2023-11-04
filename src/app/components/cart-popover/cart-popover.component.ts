@@ -1,23 +1,51 @@
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   ElementRef,
   HostListener,
+  OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import { map, tap } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
+import { CartService } from 'src/app/cart.service';
 
 @Component({
   selector: 'app-cart-popover',
   templateUrl: './cart-popover.component.html',
   styleUrls: ['./cart-popover.component.css'],
 })
-export class CartPopoverComponent {
-  products = [2];
+export class CartPopoverComponent implements OnInit {
+  cart: any = null;
+  itemCount = 0;
   isDropdownOpen = false;
 
   @ViewChild('myDetailsElement') detailsElement!: ElementRef;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.currentUser.subscribe((user) => {
+      if (user) {
+        console.log('Subscribing to cart...');
+        this.cartService.getCartItems().subscribe((data) => {
+          this.cart = data.data;
+
+          if (this.cart && this.cart.cartItems) {
+            this.itemCount = this.cart.cartItems.length;
+          }
+        });
+      } else {
+        this.cart = null;
+        this.itemCount = 0;
+      }
+    });
+  }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
