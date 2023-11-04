@@ -30,19 +30,12 @@ export class CartPopoverComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((user) => {
-      if (user) {
-        console.log('Subscribing to cart...');
-        this.cartService.getCartItems().subscribe((data) => {
-          this.cart = data.data;
+    this.cartService.getCartItems().subscribe();
+    this.cartService.cartItems$.subscribe((data) => {
+      this.cart = data.data;
 
-          if (this.cart && this.cart.cartItems) {
-            this.itemCount = this.cart.cartItems.length;
-          }
-        });
-      } else {
-        this.cart = null;
-        this.itemCount = 0;
+      if (this.cart && this.cart.cartItems) {
+        this.itemCount = this.cart.cartItems.length;
       }
     });
   }
