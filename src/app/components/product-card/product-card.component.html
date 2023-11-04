@@ -25,7 +25,12 @@
     </p>
 
     <form class="">
-      <button class="btn btn-primary btn-block">Add to Cart</button>
+      <button
+        class="btn btn-primary btn-block"
+        (click)="addItemToCart(product.id, 1)"
+      >
+        Add to Cart
+      </button>
     </form>
   </div>
 </a>
