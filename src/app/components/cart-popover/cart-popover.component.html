@@ -15,7 +15,7 @@
           d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
         />
       </svg>
-      <span class="badge badge-sm indicator-item">8</span>
+      <span class="badge badge-sm indicator-item">{{ itemCount }}</span>
     </div>
   </label>
   <ul
@@ -23,26 +23,37 @@
     class="mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow"
   >
     <div class="card-body">
-      <span class="font-bold text-lg mb-4">8 Items</span>
+      <span class="font-bold text-lg mb-4">{{ itemCount }} Items</span>
       <ul class="border-b-2 border-b-slate-100 pb-8 flex flex-col gap-4">
-        <li
-          *ngFor="let i of test"
-          class="h-[80px] grid grid-cols-[2fr_4fr_1fr] gap-2"
-        >
-          <img
-            class="object-cover max-h-full overflow-auto w-full"
-            src="https://placehold.co/400x600"
-            alt="product image"
-          />
-          <div class="">
-            <h2 class="font-semibold text-lg">Product name</h2>
-            <p class="">{{ 299.999 | currency : "MYR" : "RM" : ".2-2" }}</p>
-          </div>
-          <span class="self-start text-right">x2</span>
-        </li>
+        <li *ngIf="itemCount == 0; else content">No items in cart.</li>
+        <ng-template #content>
+          <li
+            #template
+            *ngFor="let item of cart.cartItems"
+            class="h-[80px] grid grid-cols-[2fr_4fr_1fr] gap-2"
+          >
+            <img
+              class="object-cover max-h-full overflow-auto w-full"
+              src="{{ item.product.imageURL }}"
+              alt="product image"
+            />
+            <div class="">
+              <h2 class="font-bold text-md line-clamp-2">
+                {{ item.product.name }}
+              </h2>
+              <p class="">
+                {{ item.product.price | currency : "MYR" : "RM" : ".2-2" }}
+              </p>
+            </div>
+            <span class="self-start text-right">x{{ item.quantity }}</span>
+          </li>
+        </ng-template>
       </ul>
       <span class="text-info py-4"
-        >Subtotal: {{ 999.999 | currency : "MYR" : "RM" : ".2-2" }}</span
+        >Subtotal:
+        {{
+          cart == null ? 0 : (cart.total | currency : "MYR" : "RM" : ".2-2")
+        }}</span
       >
       <div class="card-actions">
         <button class="btn btn-outline btn-block" routerLink="/cart">
