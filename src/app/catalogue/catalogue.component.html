@@ -3,8 +3,9 @@
   *ngIf="error"
   class="w-full max-w-screen-xl"
 ></app-error-alert>
-<div *ngIf="loading; else content">
-  <span class="loading loading-spinner loading-lg"></span>
+<div *ngIf="loading; else content" class="text-center">
+  <p>Loading will be longer on cold start</p>
+  <span class="loading loading-spinner loading-lg mt-4"></span>
 </div>
 <ng-template #content>
   <div
