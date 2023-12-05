@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://commerce-api-pztr.onrender.com/api',
+  apiUrl: 'https://localhost:7027/api',
 };
