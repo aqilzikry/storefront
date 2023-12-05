@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { AuthService } from '../auth.service';
 import { Cart } from '../interfaces/cart';
@@ -13,7 +13,8 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -25,10 +26,20 @@ export class CartComponent implements OnInit {
           if (!data) return;
           this.cart = data.data;
           console.dir(this.cart);
+
+          this.cdr.detectChanges();
         });
       } else {
         this.cart = null;
       }
     });
+  }
+
+  decrementQty(cartId: number, productId: number, quantity: number) {
+    this.cartService.updateItemQuantity(cartId, productId, quantity);
+  }
+
+  incrementQty(cartId: number, productId: number, quantity: number) {
+    this.cartService.updateItemQuantity(cartId, productId, quantity);
   }
 }

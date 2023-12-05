@@ -58,4 +58,23 @@ export class CartService {
         this.cartItemsSubject.next(data);
       });
   }
+
+  updateItemQuantity(
+    cartId: number,
+    productId: number,
+    quantity: number
+  ): void {
+    const data = {
+      productId,
+      cartId,
+      quantity,
+    };
+    this.http
+      .put(environment.apiUrl + '/Cart', data, {
+        headers: this.generateHeader(),
+      })
+      .subscribe((data) => {
+        this.cartItemsSubject.next(data);
+      });
+  }
 }

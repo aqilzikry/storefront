@@ -19,12 +19,22 @@
             <p class="mt-1 text-xs text-gray-700">
               {{ cartItem.product.category | uppercase }}
             </p>
+            <p class="mt-1 text-xs text-teal-500">
+              {{ cartItem.product.price | currency : "MYR" : "RM" : ".2-2" }}
+            </p>
           </div>
           <div
             class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6"
           >
             <div class="flex items-center border-gray-100">
               <span
+                (click)="
+                  decrementQty(
+                    cartItem.id,
+                    cartItem.product.id,
+                    cartItem.quantity - 1
+                  )
+                "
                 class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
               >
                 -
@@ -36,6 +46,13 @@
                 min="1"
               />
               <span
+                (click)="
+                  incrementQty(
+                    cartItem.id,
+                    cartItem.product.id,
+                    cartItem.quantity + 1
+                  )
+                "
                 class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
               >
                 +
